@@ -1,6 +1,9 @@
 
 var controller = {
 
+    direction: "",
+    fire: false,
+
     init: function() {
         view.clearCanvas();
         view.drawShip( ship );
@@ -31,15 +34,24 @@ var controller = {
           ship.direction -= 1/20 * Math.PI;
         }
       },
-    
+
+    setThrust: function(){
+        if(controller.direction === "up"){
+            console.log("thrust");
+          ship.velX += 1 * Math.cos(ship.direction) / 2;
+          ship.velY += 1 * Math.sin(ship.direction) / 2;
+        }
+    },
+
+
     gameLoop:function() {
         view.clearCanvas();
         view.drawShip( ship );
         controller.setDirection();
-        // controller.setThrust();
+        controller.setThrust();
         // controller.controlShipFire();
         controller.updateAsteroidPos();
-        // ship.updatePosition();
+        ship.updatePosition();
         // asteroid.collision();
     },
 
