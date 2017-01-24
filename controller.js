@@ -23,11 +23,19 @@ var controller = {
           view.drawAsteroid(ast);
         });
     },
+
+      setDirection: function(  ) {
+        if(controller.direction === "right"){
+          ship.direction += 1/20 * Math.PI;
+        }else if (controller.direction === "left"){
+          ship.direction -= 1/20 * Math.PI;
+        }
+      },
     
     gameLoop:function() {
         view.clearCanvas();
         view.drawShip( ship );
-        // controller.setDirection();
+        controller.setDirection();
         // controller.setThrust();
         // controller.controlShipFire();
         controller.updateAsteroidPos();
