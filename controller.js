@@ -2,7 +2,10 @@
 var controller = {
 
     init: function() {
-
+        view.clearCanvas();
+        view.drawShip( ship );
+        ship.randomStartInfo();
+        controller.generateAsteroids(5);
     },
 
     generateAsteroids: function(num){
