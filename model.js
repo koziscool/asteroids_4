@@ -27,6 +27,23 @@ var asteroid = {
 
     return new asteroid.Constructor( randX, randY, randVX, randVY, 50, 50 );
   },
+
+  collision: function(){
+    $.each(space.asteroids, function(indexA, astA){
+      $.each(space.asteroids, function(indexB, astB){
+        if (astA.locationX < astB.locationX + astB.width &&
+           astA.locationX + astA.width > astB.locationX &&
+           astA.locationY < astB.locationY + astB.height &&
+           astA.height + astA.locationY > astB.locationY && astA !== astB){
+             astA.collision = true;
+             astB.collision = true;
+           }
+      });
+
+    });
+
+  }
+
 };
 
 var ship = {
@@ -80,6 +97,19 @@ var ship = {
     };
     return point;
   },
+
+  fire: function() 
+  {
+    var bulletHeight = 2;
+    var bulletWidth = 2;
+    var bulletVX =  10 * Math.cos( ship.direction);
+    var bulletVY = 10 * Math.sin( ship.direction);
+    var bullet =  new asteroid.Constructor( ship.locationX, ship.locationY,
+     bulletVX, bulletVY, bulletHeight, bulletWidth );
+
+    space.asteroids.push(bullet);
+  },
+
 };
 
 var space = {

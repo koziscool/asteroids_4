@@ -26,14 +26,21 @@ var controller = {
           view.drawAsteroid(ast);
         });
     },
+    splitAsteroid: function(ast, index){
+    space.asteroids.push(new asteroid.Constructor(ast.locationX - 25, ast.locationY - 25, ast.velX * -1, ast.velY * -1, ast.width/2, ast.height/2));
+    space.asteroids.push(new asteroid.Constructor(ast.locationX + 25, ast.locationY + 25, ast.velX * -1, ast.velY * -1, ast.width/2, ast.height/2));
 
-      setDirection: function(  ) {
+    space.asteroids.splice(index, 1);
+
+    },
+
+    setDirection: function(  ) {
         if(controller.direction === "right"){
           ship.direction += 1/20 * Math.PI;
         }else if (controller.direction === "left"){
           ship.direction -= 1/20 * Math.PI;
         }
-      },
+    },
 
     setThrust: function(){
         if(controller.direction === "up"){
@@ -43,16 +50,22 @@ var controller = {
         }
     },
 
+    controlShipFire: function() {
+        if(controller.fire === true){
+          ship.fire();
+          controller.fire = false;
+        }
+    },
 
     gameLoop:function() {
         view.clearCanvas();
         view.drawShip( ship );
         controller.setDirection();
         controller.setThrust();
-        // controller.controlShipFire();
+        controller.controlShipFire();
         controller.updateAsteroidPos();
         ship.updatePosition();
-        // asteroid.collision();
+        asteroid.collision();
     },
 
     game: function() {
